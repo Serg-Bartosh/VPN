@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'account/profile.css' %}">
+</head>
+<body>
+<header>
+    <h1><a href="{% url 'main' %}">VPN Service</a></h1>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<div class="user-info-container">
+    <h1>User Profile</h1>
+    <div class="user-info">
+        <div class="name"><p>Username: {{ user.username }} </p></div>
+        <br>
+        <div class="name"><p>Email Address: {{ user.email }}</p></div>
+    </div>
+    <div class="edit-profile-button">
+        <button onclick="editProfile()">Edit Profile</button>
+    </div>
+</div>
+
+<div id="editProfileForm" class="edit-profile-form" style="display: none;">
+    <form action="{% url 'edit_profile' %}" method="post">
+        {% csrf_token %}
+        <label for="new_username">New Username:
+            <input type="text" name="new_username" required>
+        </label>
+        <br>
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+{% if errors %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            <a>{{ error }}</a>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="container">
+    <div class="table-container">
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Site</th>
+                <th>Name</th>
+                <th>Click Count</th>
+                <th>Downloaded Data (GB)</th>
+                <th>Sent Data (GB)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for site in sites %}
+                <tr>
+                    <td>{{ site.url }}</td>
+                    <td>{{ site.name }}</td>
+                    <td>{{ site.link_click_count }}</td>
+                    <td>{{ site.downloaded_data_size }}</td>
+                    <td>{{ site.sent_data_size }}</td>
+                    <td colspan="2">
+                        <form method="get" action="{% url 'proxy' user_site_name=site.name original_link=site.url %}">
+                            {% csrf_token %}
+                            <button type="submit">Go through Proxy</button>
+                        </form>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        <button class="add-site-btn" onclick="showForm()">Add Site</button>
+    </div>
+
+</div>
+
+<div id="addSiteForm" class="add-site-form">
+    <form action="{% url 'profile' %}" method="post">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <label>
+            <input type="text" name="name" required>
+        </label>
+        <br>
+        <label for="url">URL:</label>
+        <label>
+            <input type="url" name="url" required>
+        </label>
+
+        <br>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+<script>
+    function showForm() {
+        form = document.getElementById('addSiteForm');
+        form.style.display = 'block';
+    }
+</script>
+
+<script>
+    function logout() {
+        alert('User Logout.');
+        window.location.href = '{% url "logout" %}';
+    }
+</script>
+
+<script>
+    function editProfile() {
+        form = document.getElementById('editProfileForm');
+        form.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

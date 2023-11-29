@@ -1,0 +1,82 @@
+body {
+    width: 100%;
+    color: aliceblue;
+    font: 100 100%/1.6 "Heebo", sans-serif;
+    overflow-x: hidden;
+}
+
+.scene {
+    position: relative;
+    height: 100vh;
+    background-image: linear-gradient(355deg, #000000 0, #001030 25%, #001948 50%, #002b62 75%, #0d0d1e 100%);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: -10px;
+}
+
+.card {
+    max-width: 300px;
+    color: white;
+    background: #fefefe13;
+    backdrop-filter: blur(10px);
+    border: 1px solid #fefefe2e;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px 0 #362100a6;
+    overflow: hidden;
+    padding: 20px 30px 50px 30px;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+.heading {
+    font-size: 21px;
+    font-weight: 200;
+    margin-bottom: 15px;
+}
+
+.figure {
+    height: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.image {
+    display: block;
+    padding-left: 20px;
+    width: 110%;
+}
+
+.input {
+    width: 95%;
+    background: #fefefe13;
+    border: 1px solid #fefefe4d;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: #fefefe;
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.input:focus {
+    background: #fefefe14;
+    border: 1px;
+    outline: none;
+}
+
+.button {
+    background: #fefefea6;
+    border-radius: 3px;
+    color: #362100;
+    margin: 15px auto 0 auto;
+    padding: 12px 24px;
+}
+
+.button:active {
+    background: #ffffffbf;
+    outline: none;
+}

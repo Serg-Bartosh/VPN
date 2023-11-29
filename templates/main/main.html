@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>VPN Service</title>
+    <link rel="stylesheet" href="{% static 'main/main.css' %}">
+</head>
+<body>
+
+<header>
+    <h1> VPN Service </h1>
+    <div class="user-info">
+        {% if user.is_authenticated %}
+            <button class="nav-btn" onclick="redirect('{% url 'profile' %}')">User Profile</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        {% else %}
+            <button class="login-btn" onclick="redirect('{% url 'login' %}')">Log in</button>
+        {% endif %}
+    </div>
+</header>
+
+<div class="full-screen-section">
+    <div class="section">
+        <h2>About VPN Service</h2>
+        <p>VPN (Virtual Private Network) is a technology that provides a secure and encrypted connection on the
+            internet.
+            It helps maintain data privacy, ensures anonymity, and protects against unwanted access to your personal
+            information.</p>
+    </div>
+</div>
+
+<div class="row-section">
+    <div class="col-section section">
+        <h2>About Us</h2>
+        <p>Creator: Onehayzent</p>
+    </div>
+    <div class="col-section section">
+        <h2>Pricing</h2>
+        <p>For now this service is free)</p>
+    </div>
+    <div class="col-section section">
+        <h2>What is VPN</h2>
+        <p>A virtual private network (VPN) is a mechanism for creating a secure connection between a computing device
+            and a computer network, or between two networks, using an insecure communication medium such as the public
+            Internet.
+            A VPN can extend access to a private network (one that disallows or restricts public access) to users who do
+            not have direct access to it, such as an office network allowing secure access from off-site over the
+            Internet. The benefits of a VPN include security, reduced costs for dedicated communication lines, and
+            greater flexibility for remote workers. VPNs are also used to bypass Internet censorship. Encryption is
+            common, although not an inherent part of a VPN connection.
+            A VPN is created by establishing a virtual point-to-point connection through the use of tunneling protocols
+            over existing networks. A VPN available from the public Internet can provide some of the benefits of a
+            private wide area network (WAN).</p>
+    </div>
+</div>
+
+<script>
+    function redirect(url) {
+        window.location.href = url;
+    }
+
+    function logout() {
+        alert('User Logout.');
+        window.location.href = '{% url "logout" %}';
+    }
+</script>
+
+</body>
+</html>

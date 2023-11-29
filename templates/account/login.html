@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'account/login.css' %}">
+    <title>VPN - Log in</title>
+</head>
+
+<body>
+<div class="scene">
+    <section class="card">
+        <figure class="figure">
+            <img class="image" src="{% static 'images/logo.png' %}" alt="">
+        </figure>
+
+        {% if user.is_authenticated %}
+            <p>You are already logged in.</p>
+
+        {% else %}
+
+            {% if errors %}
+                <div class="alert alert-danger">
+                    {% for error in errors %}
+                        <a>{{ error }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Killer228" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="mDe563i7KZ" required>
+            <br>
+            <input type="submit" value="Log in">
+            <br>
+            <a href="{% url 'registration' %}">Registration</a>
+        </form>
+    </section>
+</div>
+
+</body>
+
+</html>

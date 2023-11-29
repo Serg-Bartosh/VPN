@@ -1,0 +1,96 @@
+/* static/main/main.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #292b2c;
+    color: #fff;
+}
+
+header {
+    background-color: #222;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+    display: inline-block;
+}
+
+
+h2 {
+    margin: 5px;
+}
+
+p {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.nav-btn,
+.logout-btn,
+.login-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.nav-btn {
+    background-color: #5bc0de;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.logout-btn {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.login-btn {
+    background-color: #5bc0de;
+    color: #fff;
+}
+
+.section {
+    padding: 20px;
+    background-color: #37474f;
+    border: 1px solid #607d8b;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 10px;
+    flex-grow: 1;
+}
+
+.full-screen-section {
+    height: 100vh;
+    width: 200vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.row-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.col-section {
+    width: 25%;
+}
+
+/* Hover effect */
+.section:hover {
+    background-color: #455a64;
+    transform: scale(1.05);
+}
