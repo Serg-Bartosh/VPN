@@ -12,6 +12,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 
+from .dtos.edit_profile_dto import EditProfileForm
 from .dtos.site_dto import SiteForm
 from .dtos.user_dto import FormUser
 from .models import Site
@@ -142,25 +143,35 @@ def profile_view(request: HttpRequest) -> HttpResponse:
 @login_required
 def edit_profile(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
-        new_username = request.POST.get("new_username")
+        form = EditProfileForm(request.POST)
+        if form.is_valid():
+            new_username = form.cleaned_data["new_username"]
 
-        try:
-            User.objects.get(username=new_username)
-            errors = ["Это имя уже занято. Выберите другое."]
-            sites = request.user.site_set.all()
-            form = SiteForm()
-            return render(
-                request,
-                "account/profile.html",
-                {"errors": errors, "user": request.user, "sites": sites, "form": form},
-            )
+            try:
+                User.objects.get(username=new_username)
+                errors = ["Это имя уже занято. Выберите другое."]
+                sites = request.user.site_set.all()
+                form = SiteForm()
+                return render(
+                    request,
+                    "account/profile.html",
+                    {
+                        "errors": errors,
+                        "user": request.user,
+                        "sites": sites,
+                        "form": form,
+                    },
+                )
 
-        except User.DoesNotExist:
-            request.user.username = new_username
-            request.user.save()
-            return redirect("profile")
+            except User.DoesNotExist:
+                request.user.username = new_username
+                request.user.save()
+                return redirect("profile")
 
-    return render(request, "account/profile.html")
+        return render(
+            request, "account/profile.html", {"errors": ["Data entered incorrectly"]}
+        )
+    return render(request, "account/profile.html", {"errors": ["Invalid request"]})
 
 
 def proxy_view(
